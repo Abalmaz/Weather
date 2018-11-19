@@ -7,3 +7,4 @@ from .models import Weather
 class WeatherListView(ListView):
     model = Weather
     template_name = 'my_weather/show_weather.html'
+    context_object_name = 'temperatures'
