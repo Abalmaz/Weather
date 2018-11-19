@@ -14,6 +14,10 @@ class Source(models.Model):
 
 
 class Weather(models.Model):
-    source = models.ForeignKey(Source, on_delete=models.CASCADE)
+    source = models.ForeignKey(Source, on_delete=models.CASCADE,
+                               related_name='weathers')
     date = models.DateField()
     temperature = models.IntegerField()
+
+    class Meta:
+        ordering = ('-date',)

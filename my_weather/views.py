@@ -3,12 +3,19 @@ from django.utils import timezone
 from datetime import timedelta
 from django.views.generic.list import ListView
 
-from .models import Weather
+from .models import Source
 
 
-class WeatherListView(ListView):
-    model = Weather
+class SourceListView(ListView):
+    model = Source
     template_name = 'my_weather/show_weather.html'
-    context_object_name = 'temperatures'
-    today = timezone.now() - timedelta(days=5)
-    queryset = Weather.objects.filter(date__gt=today).order_by('-date')
+    context_object_name = 'sources'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        today = timezone.localdate()
+        min_date = today - timedelta(days=5)
+        context['min_date'] = min_date
+
+        return context
+

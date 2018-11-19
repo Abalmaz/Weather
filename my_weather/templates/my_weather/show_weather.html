@@ -10,23 +10,27 @@
       </tr>
     </thead>
     <tbody>
-      {% for temper in temperatures %}
-        <tr>
-            <td class="align-middle">
-                {{ temper.source }}
-            </td>
-            <td class="align-middle">
-                {{ temper.date }}
-            </td>
-            <td class="align-middle">
-                {{ temper.temperature }}
-            </td>
-        </tr>
+    {% for source in sources %}
+      {% for temper in source.weathers.all %}
+        {% if temper.date >= min_date %}
+            <tr>
+                <td class="align-middle">
+                    {{ temper.source }}
+                </td>
+                <td class="align-middle">
+                    {{ temper.date }}
+                </td>
+                <td class="align-middle">
+                    {{ temper.temperature }}
+                </td>
+            </tr>
+        {% endif %}
       {% empty %}
         <tr>
           <td colspan="5">No data</td>
         </tr>
       {% endfor %}
+    {% endfor %}
     </tbody>
 </table>
 <br>
@@ -40,7 +44,23 @@
       </tr>
     </thead>
     <tbody>
-
+          {% for source in sources %}
+        <tr>
+            <td class="align-middle">
+                {{ source.name }}
+            </td>
+            <td class="align-middle">
+                {{source.status }}
+            </td>
+            <td class="align-middle">
+                <input type="checkbox" {% if source.is_update %}checked{% endif %}>
+            </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">No data</td>
+        </tr>
+      {% endfor %}
     </tbody>
 </table>
 {% endblock %}
