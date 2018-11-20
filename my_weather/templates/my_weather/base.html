@@ -9,27 +9,30 @@
           crossorigin="anonymous">
 </head>
 <body>
-{% block body %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">Weather</a>
-            <div class="collapse navbar-collapse" id="mainMenu">
-                {% if user.is_authenticated %}
-                    <form class="form-inline ml-auto">
-                        <a href="{% url 'logout' %}" class="btn btn-outline-secondary">Log out</a>
-                    </form>
-                {% else %}
-                    <form class="form-inline ml-auto">
-                        <a href="{% url 'login' %}" class="btn btn-outline-secondary">Log in</a>
-                    </form>
-                {% endif %}
+    {% block body %}
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'home' %}">Weather</a>
+                <div class="collapse navbar-collapse" id="mainMenu">
+                    {% if user.is_authenticated %}
+                        <form class="form-inline ml-auto">
+                            <a href="{% url 'logout' %}" class="btn btn-outline-secondary">Log out</a>
+                        </form>
+                    {% else %}
+                        <form class="form-inline ml-auto">
+                            <a href="{% url 'login' %}" class="btn btn-outline-secondary">Log in</a>
+                        </form>
+                    {% endif %}
+                </div>
             </div>
+        </nav>
+        <div class="container">
+            {% block content %}
+            {% endblock content %}
         </div>
-    </nav>
-    <div class="container">
-        {% block content %}
-        {% endblock content %}
-    </div>
-{% endblock %}
+
+    {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    {% block script %}{% endblock %}
 </body>
 </html>
