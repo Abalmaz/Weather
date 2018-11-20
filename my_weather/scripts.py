@@ -19,7 +19,7 @@ def setup_weather_for_source(source_id):
                                                  defaults={
                                                      'temperature': temperature}
                                                  )
-                source.set_status(source.DONE)
+                source.set_status(Source.DONE)
             else:
                 raise ValueError("Can't update weather for this source")
     except (ValueError, Exception):

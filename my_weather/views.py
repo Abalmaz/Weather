@@ -5,7 +5,7 @@ from datetime import timedelta
 
 from django.views.generic.list import ListView
 
-from my_weather.scripts import setup_weather_for_source
+from my_weather.tasks import setup_weather_for_source
 from .models import Source
 
 
