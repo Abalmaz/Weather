@@ -1,18 +1,13 @@
+from celery import shared_task
+
 from my_weather.models import Source
-from my_weather.scripts import setup_weather_for_source, \
-    change_status_for_source
+from my_weather.scripts import run_update_weather
 
 
-def run_update_weather(source_id):
-    try:
-        source = Source.objects.filter(id=source_id).first()
-        if source:
-            if source.is_update:
-                change_status_for_source(source.id, "Running")
-                setup_weather_for_source(source)
-                change_status_for_source(source.id, "Done")
-            else:
-                raise ValueError("Can't update weather for this source")
-    except (ValueError, Exception) as e:
-        return False, e
+@shared_task
+def run_update_weather_for_all_source():
+    sources = Source.objects.all()
+    for source in sources:
+        run_update_weather(source.id)
+
 

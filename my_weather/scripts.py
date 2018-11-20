@@ -20,7 +20,22 @@ def change_status_for_source(source_id, status):
 def setup_weather_for_source(source):
     today = timezone.localdate()
     temperature = random.randint(-10, 10)
-    new_weather = Weather.objects.update_or_create(source=source,
-                                                   date=today,
-                                                   temperature=temperature)
-    new_weather.save()
+    Weather.objects.update_or_create(source=source,
+                                     date=today,
+                                     temperature=temperature)
+    change_status_for_source(source.id, "Done")
+
+
+def run_update_weather(source_id):
+    try:
+        source = Source.objects.filter(id=source_id).first()
+        if source:
+            if source.is_update:
+                change_status_for_source(source_id, "Running")
+                setup_weather_for_source(source)
+            else:
+                raise ValueError("Can't update weather for this source")
+    except (ValueError, Exception) as e:
+        return
+
+

@@ -30,7 +30,6 @@ function updateSource(){
 
 function runScript(){
     $('#run_script input[type="button"]').click(function (event) {
-    console.log("Press button");
     var csrftoken = getCookie('csrftoken');
         $.ajax({
             url : "update_weather/",
