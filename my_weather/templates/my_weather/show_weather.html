@@ -54,6 +54,7 @@
                 {{source.status }}
             </td>
             <td class="align-middle">
+                {{ csrf_input }}
                 <div id="update_source">
                     <input type="checkbox" data-source-id="{{ source.id }}" {% if source.is_update %}checked{% endif %}>
                 </div>

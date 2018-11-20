@@ -1,7 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from datetime import timedelta
 
+from django.views.decorators.csrf import csrf_protect
 from django.views.generic.list import ListView
 
 from .models import Source
@@ -21,10 +23,11 @@ class SourceListView(ListView):
         return context
 
 
+@csrf_protect
 def update_source(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.is_ajax():
         data = request.POST
         source = get_object_or_404(Source, pk=data['pk'])
-        source.is_update = False
+        source.is_update = not source.is_update
         source.save()
-        return render(request, 'my_weather/show_weather.html')
+        return JsonResponse({'status': 'success'})

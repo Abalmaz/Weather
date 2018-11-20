@@ -14,7 +14,6 @@
 }
  $(document).ready(function(){
      $('#update_source input[type="checkbox"]').click(function (event) {
-        console.log("is working!")
         var csrftoken = getCookie('csrftoken');
         $.ajax({
             url : "update_source/",
@@ -27,7 +26,6 @@
 //                console.log(json);
                 console.log("success");
             },
-
         });
     });
 });
