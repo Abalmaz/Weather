@@ -12,8 +12,8 @@
     }
     return cookieValue;
 }
- $(document).ready(function(){
-     $('#update_source input[type="checkbox"]').click(function (event) {
+function updateSource(){
+  $('#update_source input[type="checkbox"]').click(function (event) {
         var csrftoken = getCookie('csrftoken');
         $.ajax({
             url : "update_source/",
@@ -22,10 +22,21 @@
                     pk: $(this).data('source-id') },
 
             success : function() {
-//                $('#is_update').val('');
-//                console.log(json);
                 console.log("success");
             },
         });
     });
+}
+
+
+ $(document).ready(function(){
+    $('#loading').hide();
+    $("#loading").bind("ajaxSend", function(){
+        $(this).show(); // показываем элемент
+        console.log("show")
+    }).bind("ajaxComplete", function(){
+   $(this).hide(); // скрываем элемент
+});
+    updateSource();
+
 });

@@ -3,7 +3,6 @@ from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from datetime import timedelta
 
-from django.views.decorators.csrf import csrf_protect
 from django.views.generic.list import ListView
 
 from .models import Source
@@ -23,7 +22,6 @@ class SourceListView(ListView):
         return context
 
 
-@csrf_protect
 def update_source(request):
     if request.method == 'POST' and request.is_ajax():
         data = request.POST

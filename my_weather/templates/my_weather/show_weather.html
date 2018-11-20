@@ -36,6 +36,9 @@
 </table>
 <br>
 <br>
+<div id="loading">
+    <img src="{% static 'img/ajax-loader.gif' %}" alt="loading"/>
+</div>
 <table class="table">
     <thead class="table table-hover">
       <tr>
@@ -54,7 +57,6 @@
                 {{source.status }}
             </td>
             <td class="align-middle">
-                {{ csrf_input }}
                 <div id="update_source">
                     <input type="checkbox" data-source-id="{{ source.id }}" {% if source.is_update %}checked{% endif %}>
                 </div>
@@ -67,5 +69,7 @@
       {% endfor %}
     </tbody>
 </table>
+
+
 {% endblock %}
 {% block script %}<script src="{% static 'my_weather/js/script.js' %}"></script>{% endblock %}
