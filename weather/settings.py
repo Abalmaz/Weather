@@ -133,5 +133,5 @@ CELERY_BROKER_URL = 'amqp://localhost'
 CELERY_BEAT_SCHEDULE = {
     'add-every-night': dict(
         task='my_weather.tasks.run_update_weather_for_all_source',
-        schedule=crontab(minute="*/1")),
+        schedule=crontab(hour=0)),
 }

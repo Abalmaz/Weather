@@ -5,7 +5,7 @@ from datetime import timedelta
 
 from django.views.generic.list import ListView
 
-from my_weather.tasks import run_update_weather
+from my_weather.scripts import setup_weather_for_source
 from .models import Source
 
 
@@ -36,6 +36,6 @@ def update_weather_for_source(request):
     if request.method == 'POST' and request.is_ajax():
         data = request.POST
         source_id = data['pk']
-        run_update_weather(source_id)
+        setup_weather_for_source(source_id)
         return JsonResponse({'status': 'success'})
 
