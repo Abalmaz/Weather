@@ -54,9 +54,9 @@
                 {{source.status }}
             </td>
             <td class="align-middle">
-                <form action="/update_source" method="POST" id="source-form">
-                    <input type="checkbox" {% if source.is_update %}checked{% endif %}>
-                </form>
+                <div id="update_source">
+                    <input type="checkbox" data-source-id="{{ source.id }}" {% if source.is_update %}checked{% endif %}>
+                </div>
             </td>
         </tr>
       {% empty %}
