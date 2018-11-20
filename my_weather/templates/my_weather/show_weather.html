@@ -45,6 +45,7 @@
           <th>Source</th>
           <th>Status</th>
           <th>Is update</th>
+          <th></th>
       </tr>
     </thead>
     <tbody>
@@ -59,6 +60,11 @@
             <td class="align-middle">
                 <div id="update_source">
                     <input type="checkbox" data-source-id="{{ source.id }}" {% if source.is_update %}checked{% endif %}>
+                </div>
+            </td>
+            <td class="align-middle">
+                <div id="run_script">
+                    <input type="button" data-source-id="{{ source.id }}" value="run">
                 </div>
             </td>
         </tr>

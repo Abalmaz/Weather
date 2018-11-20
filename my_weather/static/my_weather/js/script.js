@@ -28,6 +28,21 @@ function updateSource(){
     });
 }
 
+function runScript(){
+    $('#run_script input[type="button"]').click(function (event) {
+    console.log("Press button");
+    var csrftoken = getCookie('csrftoken');
+        $.ajax({
+            url : "update_weather/",
+            type : "POST",
+            data : {'csrfmiddlewaretoken': csrftoken,
+                    pk: $(this).data('source-id') },
+            success : function() {
+                console.log("success");
+            },
+        });
+    });
+}
 
  $(document).ready(function(){
     $('#loading').hide();
@@ -38,5 +53,5 @@ function updateSource(){
    $(this).hide(); // скрываем элемент
 });
     updateSource();
-
+    runScript();
 });
