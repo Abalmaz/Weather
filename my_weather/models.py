@@ -21,3 +21,4 @@ class Weather(models.Model):
 
     class Meta:
         ordering = ('-date',)
+        unique_together = (("source", "date"),)
