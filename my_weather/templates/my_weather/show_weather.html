@@ -1,0 +1,75 @@
+{% extends 'my_weather/base.html' %}
+{% load static %}
+{% block content %}
+<br>
+<table class="table">
+    <thead class="table table-hover">
+      <tr>
+          <th>Source</th>
+          <th>Date</th>
+          <th>Temperature</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for source in sources %}
+      {% for temper in source.weathers.all %}
+        {% if temper.date >= min_date %}
+            <tr>
+                <td class="align-middle">
+                    {{ temper.source }}
+                </td>
+                <td class="align-middle">
+                    {{ temper.date }}
+                </td>
+                <td class="align-middle">
+                    {{ temper.temperature }}
+                </td>
+            </tr>
+        {% endif %}
+      {% empty %}
+        <tr>
+          <td colspan="5">No data</td>
+        </tr>
+      {% endfor %}
+    {% endfor %}
+    </tbody>
+</table>
+<br>
+<br>
+<div id="loading">
+    <img src="{% static 'img/ajax-loader.gif' %}" alt="loading"/>
+</div>
+<table class="table">
+    <thead class="table table-hover">
+      <tr>
+          <th>Source</th>
+          <th>Status</th>
+          <th>Is update</th>
+      </tr>
+    </thead>
+    <tbody>
+          {% for source in sources %}
+        <tr>
+            <td class="align-middle">
+                {{ source.name }}
+            </td>
+            <td class="align-middle">
+                {{source.status }}
+            </td>
+            <td class="align-middle">
+                <div id="update_source">
+                    <input type="checkbox" data-source-id="{{ source.id }}" {% if source.is_update %}checked{% endif %}>
+                </div>
+            </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">No data</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}
+{% block script %}<script src="{% static 'my_weather/js/script.js' %}"></script>{% endblock %}
