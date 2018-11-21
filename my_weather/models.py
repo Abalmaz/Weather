@@ -22,8 +22,9 @@ class Source(models.Model):
         return self.name
 
     def set_status(self, status):
-        self.status = status
-        self.save()
+        if status in dict(self.STATUSES):
+            self.status = status
+            self.save()
 
 
 class Weather(models.Model):
