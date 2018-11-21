@@ -34,8 +34,12 @@ def update_source(request):
 
 def update_weather_for_source(request):
     if request.method == 'POST' and request.is_ajax():
+        status = 'failed'
         data = request.POST
-        source_id = data['pk']
-        setup_weather_for_source(source_id)
-        return JsonResponse({'status': 'success'})
+        source = get_object_or_404(Source, pk=data['pk'])
+        if source.is_update:
+            setup_weather_for_source(source)
+            status = 'success'
+        return JsonResponse({'status': status})
+
 

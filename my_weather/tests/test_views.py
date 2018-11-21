@@ -1,7 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse, resolve
 
-from my_weather import views
 from my_weather.models import Source
 from my_weather.views import SourceListView
 
