@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="search row mt-5">
+        <div class="col-md-5 mx-auto">
+          <form class="input-group" id="input-search-city">
+            <input
+              type="search"
+              class="form-control"
+              placeholder="Enter city"
+              id="input-city"
+            />
+            <button
+              class="btn btn-outline-secondary"
+              type="submit"
+              id="search-button"
+            >
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="current-condition">
+        <div class="card mb-3 mx-auto mt-3 current-condition-card">
+          <div class="row g-0">
+            <div class="card-header" id="current-city">
+              Thonon-les-Bains, Haute-Savoie, France
+            </div>
+            <div class="col-md-10">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <span id="current-temperature">35</span>
+                  <span class="units">
+                    <a href="#" class="active">°C</a>
+                    <span class="inactive"> | </span>
+                    <a href="#" class="inactive">°F</a>
+                  </span>
+                </h5>
+                <p class="card-text">Day 35°C • Night 22°C</p>
+              </div>
+            </div>
+            <div class="current-weather-icon col-md-2">
+              <img src="./images/sun.png" alt="Sunny" />
+            </div>
+            <div class="card-footer">
+              <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+              Disruption due to extreme high temperatures
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="more-info">
+        <nav>
+          <div class="nav nav-tabs rounded-top" id="nav-tab" role="tablist">
+            <button
+              class="nav-link active"
+              id="nav-today-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-today"
+              type="button"
+              role="tab"
+              aria-controls="nav-today"
+              aria-selected="true"
+            >
+              Today
+            </button>
+            <button
+              class="nav-link"
+              id="nav-tomorrow-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-tomorrow"
+              type="button"
+              role="tab"
+              aria-controls="nav-tomorrow"
+              aria-selected="false"
+            >
+              Tomorrow
+            </button>
+            <button
+              class="nav-link"
+              id="nav-ten-days-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-ten-days"
+              type="button"
+              role="tab"
+              aria-controls="nav-ten-days"
+              aria-selected="false"
+            >
+              10 days
+            </button>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div
+            class="tab-pane fade show active"
+            id="nav-today"
+            role="tabpanel"
+            aria-labelledby="nav-today-tab"
+            tabindex="0"
+          >
+            <h3 class="today-name main-text-shadow" id="today-date"></h3>
+            <canvas id="todayTemperatureLineChart"></canvas>
+          </div>
+          <div
+            class="tab-pane fade"
+            id="nav-tomorrow"
+            role="tabpanel"
+            aria-labelledby="nav-tomorrow-tab"
+            tabindex="0"
+          >
+            <div class="tomorrow-main-info row">
+              <div class="state-info col-md-10">
+                <h3 class="main-text-shadow">Saturday, August 26</h3>
+                <p class="tomorrow-max-min-tempreture">Day 22°C • Night 17°C</p>
+                <p class="tomorrow-state main-text-shadow">Thundershower</p>
+              </div>
+              <div class="tomorrow-weather-icon col-md-2">
+                <img src="./images/thunderstorm.png" alt="Thunderstorm" />
+              </div>
+            </div>
+            <canvas id="tomorrowTemperatureLineChart"></canvas>
+          </div>
+          <div
+            class="tab-pane fade"
+            id="nav-ten-days"
+            role="tabpanel"
+            aria-labelledby="nav-ten-days-tab"
+            tabindex="0"
+          >
+            <div class="tab-ten-days-weather rounded">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td class="day-name">
+                      <div>
+                        Today
+                        <div class="day-state">Sunny</div>
+                      </div>
+                    </td>
+                    <td></td>
+                    <td>
+                      <div class="day-state-img">
+                        <img src="./images/sun.png" alt="Sunny" />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="day-min-max-temperature">35°C • 22°C</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="day-name">
+                      <div>
+                        Saturday, Aug 26
+                        <div class="day-state">Thunderstorm</div>
+                      </div>
+                    </td>
+                    <td class="day-state-chance">100%</td>
+                    <td>
+                      <div class="day-state-img">
+                        <img
+                          src="./images/thunderstorm.png"
+                          alt="Thunderstorm"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="day-min-max-temperature">22°C • 17°C</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="day-name">
+                      <div>
+                        Sunday, Aug 27
+                        <div class="day-state">Rain</div>
+                      </div>
+                    </td>
+                    <td class="day-state-chance">100%</td>
+                    <td>
+                      <div class="day-state-img">
+                        <img src="./images/heavy-rain.png" alt="Rain" />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="day-min-max-temperature">18°C • 13°C</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="day-name">
+                      <div>
+                        Monday, Aug 28
+                        <div class="day-state">Rain</div>
+                      </div>
+                    </td>
+                    <td class="day-state-chance">90%</td>
+                    <td>
+                      <div class="day-state-img">
+                        <img src="./images/heavy-rain.png" alt="Rain" />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="day-min-max-temperature">17°C • 12°C</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="day-name">
+                      <div>
+                        Tuesday, Aug 29
+                        <div class="day-state">Showers</div>
+                      </div>
+                    </td>
+                    <td class="day-state-chance">70%</td>
+                    <td>
+                      <div class="day-state-img">
+                        <img src="./images/heavy-rain.png" alt="Showers" />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="day-min-max-temperature">20°C • 12°C</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="day-name">
+                      <div>
+                        Wednesday, Aug 30
+                        <div class="day-state">Partly cloud</div>
+                      </div>
+                    </td>
+                    <td></td>
+                    <td>
+                      <div class="day-state-img">
+                        <img src="./images/cloudy.png" alt="Partly cloud" />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="day-min-max-temperature">22°C • 13°C</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="day-name">
+                      <div>
+                        Thursday, Aug 31
+                        <div class="day-state">Scattered showers</div>
+                      </div>
+                    </td>
+                    <td class="day-state-chance">60%</td>
+                    <td>
+                      <div class="day-state-img">
+                        <img
+                          src="./images/rainy-day.png"
+                          alt="Scattered showers"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="day-min-max-temperature">23°C • 14°C</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="day-name">
+                      <div>
+                        Friday, Sep 1
+                        <div class="day-state">Showers</div>
+                      </div>
+                    </td>
+                    <td class="day-state-chance">60%</td>
+                    <td>
+                      <div class="day-state-img">
+                        <img src="./images/heavy-rain.png" alt="Showers" />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="day-min-max-temperature">26°C • 16°C</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="day-name">
+                      <div>
+                        Saturday, Sep 2
+                        <div class="day-state">Showers</div>
+                      </div>
+                    </td>
+                    <td class="day-state-chance">60%</td>
+                    <td>
+                      <div class="day-state-img">
+                        <img src="./images/heavy-rain.png" alt="Showers" />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="day-min-max-temperature">25°C • 17°C</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="day-name">
+                      <div>
+                        Sunday, Sep 3
+                        <div class="day-state">Showers</div>
+                      </div>
+                    </td>
+                    <td class="day-state-chance">100%</td>
+                    <td>
+                      <div class="day-state-img">
+                        <img src="./images/heavy-rain.png" alt="Showers" />
+                      </div>
+                    </td>
+                    <td>
+                      <div class="day-min-max-temperature">26°C • 17°C</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./src/chart_weather.js"></script>
+    <script src="./src/weather.js"></script>
+    <script src="./src/index.js"></script>
+    <script type='text/javascript' src='./src/config.js'></script>
+  </body>
+</html>
